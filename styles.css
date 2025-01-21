@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+:root {
+  --Dark-Blue: hsl(209, 23%, 22%); /* Dark Mode Elements */
+  --Very-Dark-Blue: hsl(207, 26%, 17%); /* Dark Mode Background */
+  --Very-Dark-Blue: hsl(200, 15%, 8%); /* Light Mode Text */
+  --Dark-Gray: hsl(0, 0%, 52%); /* Light Mode Input */
+  --Very-Light-Gray: hsl(0, 0%, 98%); /* Light Mode Background */
+  --White: hsl(0, 0%, 100%); /* Dark Mode Text & Light Mode Elements */
+}
+
+* {
+  font-family: "Nunito Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "YTLC" 500;
+}
+
+body {
+  background-color: var(--Very-Light-Gray);
+  font-size: 14px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.container {
+  width: 100%;
+  max-width: 350px;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Card */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--White);
+  border-radius: 7px;
+  width: 260px;
+  margin: 1.2rem;
+}
+
+.card img {
+  border-radius: 7px 7px 0 0;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-body {
+  margin: 1.5rem 1.5rem 2rem 1.5rem;
+}
+
+.card-body h2 {
+  margin: 0;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.card-body p {
+  margin: 0;
+  margin-bottom: 0.4rem;
+}
+
+.card-body p strong {
+  font-weight: 600;
+}
