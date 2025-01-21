@@ -9,7 +9,8 @@ function fillPage() {
 }
 
 function getData() {
-  return fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital")
+  // return fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital")
+  return fetch("https://restcountries.com/v3.1/name/germany?fields=name,flags,population,region,capital")
     .then(res => res.json());
 }
 

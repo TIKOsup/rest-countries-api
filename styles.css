@@ -48,6 +48,18 @@ header h1 {
   background-color: inherit;
   font-size: 12px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#theme-toggle-btn p {
+  font-weight: 600;
+  margin: 0;
+}
+
+#dark-theme-icon {
+  width: 15px;
+  margin-right: 10px;
 }
 
 
@@ -64,10 +76,18 @@ nav #search {
   border-radius: 5px;
   border: none;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem 1rem 4rem;
   margin-bottom: 2rem;
   color: var(--Dark-Gray);
   font-size: 12px;
+}
+
+nav #search-icon {
+  position: absolute;
+  top: 38px;
+  left: 40px;
+  width: 20px;
+  color: var(--Dark-Gray);
 }
 
 nav #filter-by-region {
@@ -75,17 +95,19 @@ nav #filter-by-region {
   border-radius: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background-color: var(--White);
-  padding: 1rem 2rem;
+  padding: 1rem 1rem 1rem 2rem;
   text-align: left;
   font-size: 12px;
   width: 200px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 
 nav #filter-menu {
   position: absolute;
   top: 156px;
-  width: 165px;
+  width: 168px;
   margin: 0;
   padding: 1rem;
   font-size: 12px;
@@ -98,6 +120,18 @@ nav #filter-menu {
 nav #filter-menu li {
   padding: 0 1rem 0.5rem 1rem;
   cursor: pointer;
+}
+
+#filter-by-region p {
+  margin: 0;
+}
+
+#chvron-down, #chvron-up {
+  width: 10px;
+}
+
+#chvron-up {
+  display: none;
 }
 
 

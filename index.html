@@ -13,11 +13,21 @@
 <body onload="fillPage()">
   <header>
     <h1>Where in the world?</h1>
-    <button id="theme-toggle-btn">Dark Mode</button>
+    <button id="theme-toggle-btn">
+      <img id="dark-theme-icon" src="./images/moon-outline.svg" alt="Dark theme Icon">
+      <p>Dark Mode</p>
+    </button>
   </header>
   <nav>
-    <input type="search" name="search" id="search" placeholder="Search for a country...">
-    <button id="filter-by-region">Filter by Region</button>
+    <div>
+      <svg id="search-icon" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" stroke="currentColor"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg>
+      <input type="search" name="search" id="search" placeholder="Search for a country...">
+    </div>
+    <button id="filter-by-region">
+      <p>Filter by Region</p>
+      <img id="chvron-down" src="./images/chevron-down-outline.svg" alt="Arrow Icon">
+      <img id="chvron-up" src="./images/chevron-up-outline.svg" alt="Arrow Icon">
+    </button>
     <ul id="filter-menu">
       <li>Africa</li>
       <li>America</li>
