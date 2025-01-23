@@ -109,7 +109,7 @@ nav #filter-menu {
   top: 156px;
   width: 168px;
   margin: 0;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   font-size: 12px;
   background-color: var(--White);
   border-radius: 5px;
@@ -118,7 +118,7 @@ nav #filter-menu {
 }
 
 nav #filter-menu li {
-  padding: 0 1rem 0.5rem 1rem;
+  padding: 0.25rem 1rem 0.25rem 1rem;
   cursor: pointer;
 }
 
