@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <title>Frontend Mentor | Rest Countries</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="text/javascript" src="../scripts.js"></script>
+</head>
+
+<body onload="fillDetailsPage()">
+  <header>
+    <h1>Where in the world?</h1>
+    <button id="theme-toggle-btn">
+      <img id="dark-theme-icon" src="../images/moon-outline.svg" alt="Dark theme Icon">
+      <p>Dark Mode</p>
+    </button>
+  </header>
+  <nav>
+    <a type="button" id="back-btn" href="../">
+      <img id="arrow-back" src="../images/arrow-back-outline.svg" alt="Arrow Back Icon">
+      <p>Back</p>
+    </a>
+  </nav>
+  <main>
+    <img id="flag" src="" alt="">
+    <section class="details">
+      <h2 id="name"></h2>
+      <p id="native-name"><strong>Native Name: </strong></p>
+      <p id="population"><strong>Population: </strong></p>
+      <p id="region"><strong>Region: </strong></p>
+      <p id="sub-region"><strong>Sub Region: </strong></p>
+      <p id="capital"><strong>Capital: </strong></p>
+      <p id="top-level-domain"><strong>Top level Domain: </strong></p>
+      <p id="currencies">C<strong>urrencies: </strong></p>
+      <p id="languages"><strong>Languages: </strong></p>
+    </section>
+    <section class="border-countries">
+      <h3 id="border-heading">Border Countries:</h3>
+      <div class="border-country-links"></div>
+    </section>
+  </main>
+</body>
+
+</html>

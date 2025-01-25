@@ -1,8 +1,9 @@
 const maxLoad = 3;
 let dataArr;
 
+/* Runs when the Main page loads */
 function fillPage() {
-  let data = getData();
+  let data = getAllData();
   data.then(json => {
     window.addEventListener("scroll", scrollHandler);
     dataArr = json;
@@ -11,7 +12,7 @@ function fillPage() {
   });
 }
 
-function getData() {
+function getAllData() {
   // return fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital")
   return fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,population,region,capital")
     .then(res => res.json());
@@ -33,6 +34,7 @@ function createCard(country) {
   let card = document.createElement("div");
   card.classList.add("card");
   card.innerHTML = `
+    <a href="./country#${country.name.common}">
     <img src="${country.flags.svg}" alt="${country.flags.alt}">
     <div class="card-body">
       <h2 class="country-name">${country.name.common}</h2>
@@ -40,6 +42,7 @@ function createCard(country) {
       <p class="country-region"><strong>Region:</strong> ${country.region}</p>
       <p class="country-capital"><strong>Capital:</strong> ${country.capital}</p>
     </div>
+    </a>
   `;
   main.appendChild(card);
 }
@@ -56,4 +59,86 @@ function scrollHandler() {
   if (endOfPage) {
     createNextCards();
   }
+}
+
+/* Details */
+function fillDetailsPage() {
+  window.addEventListener("hashchange", function() {
+    this.window.location.reload(true);
+  })
+
+  let currentHash = window.location.hash;
+  let data = getCountryData(currentHash);
+  data.then(json => {
+    console.log(json);
+    document.getElementById("flag").src = json[0].flags.svg;
+    document.getElementById("flag").alt = json[0].flags.alt;
+    document.getElementById("name").innerHTML = json[0].name.common;
+    document.getElementById("native-name").innerHTML += getNativeName(json[0].name.nativeName);
+    document.getElementById("population").innerHTML += formatPopulation(json[0].population);
+    document.getElementById("region").innerHTML += json[0].region;
+    document.getElementById("sub-region").innerHTML += json[0].subregion;
+    document.getElementById("capital").innerHTML += json[0].capital;
+    document.getElementById("top-level-domain").innerHTML += json[0].tld[0];
+    document.getElementById("currencies").innerHTML += getCurrencies(json[0].currencies);
+    document.getElementById("languages").innerHTML += getLanguages(json[0].languages);
+    fillBorders(json[0].borders);
+  });
+}
+
+function getCountryData(hash) {
+  hash = hash.substring(1).toLowerCase();
+  return fetch(`https://restcountries.com/v3.1/name/${hash}?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders`)
+    .then(res => res.json());
+}
+
+function getNativeName(json) {
+  return json[Object.keys(json)[0]].common;
+}
+
+function formatPopulation(population) {
+  const formatter = new Intl.NumberFormat("en-US");
+  return formatter.format(population);
+}
+
+function getCurrencies(json) {
+  let res = [];
+  for (const key in json) {
+    res.push(json[key].name);
+  }
+  return res.join(", ");
+}
+
+function getLanguages(json) {
+  let res = [];
+  for (const key in json) {
+    res.push(json[key]);
+  }
+  return res.join(", ");
+}
+
+function fillBorders(json) {
+  const section = document.getElementsByClassName("border-country-links")[0];
+  for (const key in json) {
+    const obj = getNameByCode(json[key]);
+    obj.then(nameObj => {
+      const borderCountry = document.createElement("a");
+      borderCountry.classList.add("border-link");
+      borderCountry.innerHTML = nameObj.name.common;
+      borderCountry.type = "button";
+      borderCountry.href = getUrl() + "#" + nameObj.name.common;
+      section.appendChild(borderCountry);
+    })
+  }
+}
+
+function getNameByCode(code) {
+  return fetch(`https://restcountries.com/v3.1/alpha/${code.toLowerCase()}?fields=name`)
+    .then(res => res.json());
+}
+
+function getUrl() {
+  const url = window.location.href;
+  let index = url.indexOf("#");
+  return url.substring(0, index);
 }
