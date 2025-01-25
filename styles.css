@@ -118,9 +118,22 @@ nav #filter-menu {
   list-style: none;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
 nav #filter-menu li {
   padding: 0.25rem 1rem 0.25rem 1rem;
   cursor: pointer;
+  border-radius: 3px;
+}
+
+nav #filter-menu li:hover {
+  background-color: var(--Very-Light-Gray);
 }
 
 #filter-by-region p {

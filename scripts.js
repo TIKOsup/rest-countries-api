@@ -5,6 +5,7 @@ let dataArr;
 function fillPage() {
   let data = getAllData();
   data.then(json => {
+    setFilter();
     window.addEventListener("scroll", scrollHandler);
     dataArr = json;
     console.log(dataArr);
@@ -13,9 +14,26 @@ function fillPage() {
 }
 
 function getAllData() {
-  // return fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital")
-  return fetch("https://restcountries.com/v3.1/region/europe?fields=name,flags,population,region,capital")
+  return fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital")
     .then(res => res.json());
+}
+
+function setFilter() {
+  const dropdownBtn = document.getElementById("filter-by-region");
+  dropdownBtn.addEventListener("click", function() {
+    toggleDropdownView();
+  });
+}
+
+function toggleDropdownView() {
+  const dropdownMenu = document.getElementById("filter-menu");
+  if (dropdownMenu.classList.contains("hidden")) {
+    dropdownMenu.classList.add("visible");
+    dropdownMenu.classList.remove("hidden");
+  } else {
+    dropdownMenu.classList.add("hidden");
+    dropdownMenu.classList.remove("visible");
+  }
 }
 
 function createNextCards() {
