@@ -5,10 +5,10 @@ let dataArr;
 function fillPage() {
   let data = getAllData();
   data.then(json => {
-    setFilter();
     window.addEventListener("scroll", scrollHandler);
     dataArr = json;
     console.log(dataArr);
+    setFilter();
     createNextCards();
   });
 }
@@ -20,12 +20,23 @@ function getAllData() {
 
 function setFilter() {
   const dropdownBtn = document.getElementById("filter-by-region");
+  const dropdownBtnText = document.querySelector("#filter-by-region p");
+  const dropdownMenu = document.getElementById("filter-menu");
+  const regions = new Set();
+
   dropdownBtn.addEventListener("click", function() {
     toggleDropdownView();
   });
 
+  for (let obj of dataArr) {
+    regions.add(obj.region);
+  }
+
+  for (let region of regions) {
+    dropdownMenu.innerHTML += `<li>${region}</li>`;
+  }
+
   const dropdownItems = document.querySelectorAll("#filter-menu li");
-  const dropdownBtnText = document.querySelector("#filter-by-region p");
   for (let item of dropdownItems) {
     item.addEventListener("click", function() {
       filterPageByRegion(item.innerHTML);
