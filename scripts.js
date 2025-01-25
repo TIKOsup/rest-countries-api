@@ -1,5 +1,9 @@
-const maxLoad = 3;
-let dataArr;
+/* Global Variables */
+const API_URL = "https://restcountries.com/v3.1/";
+const FIELDS_MAIN = "name,flags,population,region,capital";
+const FIELDS_DETAILS = FIELDS_MAIN + ",subregion,tld,currencies,languages,borders";
+const MAX_CARDS = 3; /* Max number of cards when creating */
+let dataArr; /* Array that holds current data */
 
 /* Runs when the Main page loads */
 function fillPage() {
@@ -14,10 +18,11 @@ function fillPage() {
 }
 
 function getAllData() {
-  return fetch("https://restcountries.com/v3.1/all?fields=name,flags,population,region,capital")
+  return fetch(`${API_URL}all?fields=${FIELDS_MAIN}`)
     .then(res => res.json());
 }
 
+/* Dynamically creates filter items and adds event listeners to filter */
 function setFilter() {
   const dropdownBtn = document.getElementById("filter-by-region");
   const dropdownBtnText = document.querySelector("#filter-by-region p");
@@ -60,7 +65,7 @@ function toggleDropdownView() {
 function filterPageByRegion(region) {
   let main = document.getElementsByTagName("main")[0];
 
-  fetch(`https://restcountries.com/v3.1/region/${region}?fields=name,flags,population,region,capital`)
+  fetch(`${API_URL}region/${region}?fields=${FIELDS_MAIN}`)
     .then(res => res.json())
     .then(json => {
       dataArr = json;
@@ -71,7 +76,7 @@ function filterPageByRegion(region) {
 }
 
 function createNextCards() {
-  for (let i = 0; i < maxLoad; i++) {
+  for (let i = 0; i < MAX_CARDS; i++) {
     let cardNum = getCardNum();
     if (cardNum >= dataArr.length) {
       console.log("DATA ended");
@@ -113,7 +118,8 @@ function scrollHandler() {
   }
 }
 
-/* Details */
+/* Details
+   Runs when the Details page loads */
 function fillDetailsPage() {
   window.addEventListener("hashchange", function() {
     this.window.location.reload(true);
@@ -140,7 +146,7 @@ function fillDetailsPage() {
 
 function getCountryData(hash) {
   hash = hash.substring(1).toLowerCase();
-  return fetch(`https://restcountries.com/v3.1/name/${hash}?fields=name,flags,population,region,subregion,capital,tld,currencies,languages,borders`)
+  return fetch(`${API_URL}name/${hash}?fields=${FIELDS_DETAILS}`)
     .then(res => res.json());
 }
 
@@ -185,7 +191,7 @@ function fillBorders(json) {
 }
 
 function getNameByCode(code) {
-  return fetch(`https://restcountries.com/v3.1/alpha/${code.toLowerCase()}?fields=name`)
+  return fetch(`${API_URL}alpha/${code.toLowerCase()}?fields=name`)
     .then(res => res.json());
 }
 
