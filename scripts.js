@@ -23,6 +23,16 @@ function setFilter() {
   dropdownBtn.addEventListener("click", function() {
     toggleDropdownView();
   });
+
+  const dropdownItems = document.querySelectorAll("#filter-menu li");
+  const dropdownBtnText = document.querySelector("#filter-by-region p");
+  for (let item of dropdownItems) {
+    item.addEventListener("click", function() {
+      filterPageByRegion(item.innerHTML);
+      dropdownBtnText.innerHTML = item.innerHTML;
+      toggleDropdownView();
+    });
+  }
 }
 
 function toggleDropdownView() {
@@ -34,6 +44,19 @@ function toggleDropdownView() {
     dropdownMenu.classList.add("hidden");
     dropdownMenu.classList.remove("visible");
   }
+}
+
+function filterPageByRegion(region) {
+  let main = document.getElementsByTagName("main")[0];
+
+  fetch(`https://restcountries.com/v3.1/region/${region}?fields=name,flags,population,region,capital`)
+    .then(res => res.json())
+    .then(json => {
+      dataArr = json;
+      console.log(dataArr);
+      main.innerHTML = "";
+      createNextCards();
+    });
 }
 
 function createNextCards() {
