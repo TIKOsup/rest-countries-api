@@ -3,15 +3,16 @@ const API_URL = "https://restcountries.com/v3.1/";
 const FIELDS_MAIN = "name,flags,population,region,capital";
 const FIELDS_DETAILS = FIELDS_MAIN + ",subregion,tld,currencies,languages,borders";
 const MAX_CARDS = 3; /* Max number of cards when creating */
-let dataArr; /* Array that holds current data */
+let allData; /* Array that holds current data */
+let filteredData;
 
 /* Runs when the Main page loads */
 function fillPage() {
   let data = getAllData();
   data.then(json => {
     window.addEventListener("scroll", scrollHandler);
-    dataArr = json;
-    console.log(dataArr);
+    allData = json;
+    console.log(allData);
     setFilter();
     createNextCards();
   });
@@ -33,7 +34,7 @@ function setFilter() {
     toggleDropdownView();
   });
 
-  for (let obj of dataArr) {
+  for (let obj of allData) {
     regions.add(obj.region);
   }
 
@@ -68,20 +69,26 @@ function filterPageByRegion(region) {
   fetch(`${API_URL}region/${region}?fields=${FIELDS_MAIN}`)
     .then(res => res.json())
     .then(json => {
-      dataArr = json;
-      console.log(dataArr);
+      allData = json;
+      console.log(allData);
       main.innerHTML = "";
       createNextCards();
     });
 }
 
-function createNextCards() {
+function createNextCards(type) {
+  let data = allData;
+  if (type === "filtered") {
+    data = filteredData;
+  }
+  console.log(data)
+
   for (let i = 0; i < MAX_CARDS; i++) {
     let cardNum = getCardNum();
-    if (cardNum >= dataArr.length) {
+    if (cardNum >= data.length) {
       console.log("DATA ended");
     } else {
-      createCard(dataArr[cardNum]);
+      createCard(data[cardNum]);
     }
   }
 }
@@ -117,6 +124,7 @@ function scrollHandler() {
     createNextCards();
   }
 }
+
 
 /* Details
    Runs when the Details page loads */
@@ -199,4 +207,19 @@ function getUrl() {
   const url = window.location.href;
   let index = url.indexOf("#");
   return url.substring(0, index);
+}
+
+
+/* Search */
+function searchByName() {
+  const searchText = document.getElementById("search").value.toLowerCase();
+
+  const filteredDataArr = allData.filter(item => 
+    item.name.common.toLowerCase().includes(searchText)
+  );
+
+  filteredData = filteredDataArr;
+  const main = document.getElementsByTagName("main")[0];
+  main.innerHTML = "";
+  createNextCards("filtered");
 }
