@@ -25,10 +25,13 @@ function getAllData() {
 
 /* Dynamically creates filter items and adds event listeners to filter */
 function setFilter() {
+  const search = document.getElementById("search");
   const dropdownBtn = document.getElementById("filter-by-region");
   const dropdownBtnText = document.querySelector("#filter-by-region p");
   const dropdownMenu = document.getElementById("filter-menu");
   const regions = new Set();
+
+  search.value = "";
 
   dropdownBtn.addEventListener("click", function() {
     toggleDropdownView();
@@ -54,12 +57,27 @@ function setFilter() {
 
 function toggleDropdownView() {
   const dropdownMenu = document.getElementById("filter-menu");
+  const chvronDown = document.getElementById("chvron-down");
+  const chvronUp = document.getElementById("chvron-up");
+
   if (dropdownMenu.classList.contains("hidden")) {
     dropdownMenu.classList.add("visible");
     dropdownMenu.classList.remove("hidden");
+
+    chvronDown.classList.add("hidden");
+    chvronDown.classList.remove("visible");
+
+    chvronUp.classList.add("visible");
+    chvronUp.classList.remove("hidden");
   } else {
     dropdownMenu.classList.add("hidden");
     dropdownMenu.classList.remove("visible");
+
+    chvronDown.classList.add("visible");
+    chvronDown.classList.remove("hidden");
+
+    chvronUp.classList.add("hidden");
+    chvronUp.classList.remove("visible");
   }
 }
 
@@ -76,12 +94,13 @@ function filterPageByRegion(region) {
     });
 }
 
-function createNextCards(type) {
+function createNextCards() {
+  const search = document.getElementById("search").value;
   let data = allData;
-  if (type === "filtered") {
+
+  if (search !== "") {
     data = filteredData;
   }
-  console.log(data)
 
   for (let i = 0; i < MAX_CARDS; i++) {
     let cardNum = getCardNum();
@@ -221,5 +240,5 @@ function searchByName() {
   filteredData = filteredDataArr;
   const main = document.getElementsByTagName("main")[0];
   main.innerHTML = "";
-  createNextCards("filtered");
+  createNextCards();
 }

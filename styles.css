@@ -119,11 +119,11 @@ nav #filter-menu {
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .visible {
-  visibility: visible;
+  display: block;
 }
 
 nav #filter-menu li {
@@ -142,10 +142,6 @@ nav #filter-menu li:hover {
 
 #chvron-down, #chvron-up {
   width: 10px;
-}
-
-#chvron-up {
-  display: none;
 }
 
 
